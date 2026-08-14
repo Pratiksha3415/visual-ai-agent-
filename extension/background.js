@@ -1,4 +1,5 @@
 // background.js
+importScripts("device.js");
 // Transparency by design:
 //  - Monitoring is OFF by default. The user must explicitly enable it from the popup.
 //  - The action badge always reflects current state ("ON" green / "OFF" grey).
@@ -66,10 +67,12 @@ async function flushQueue() {
   if (eventQueue.length === 0) return;
   const batch = eventQueue.splice(0, eventQueue.length);
   try {
+    const deviceId = await getOrCreateDeviceId();
     const res = await fetch(settings.backendUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "X-Device-Id": deviceId,
         ...(settings.apiKey ? { Authorization: `Bearer ${settings.apiKey}` } : {}),
       },
       body: JSON.stringify({ events: batch }),
