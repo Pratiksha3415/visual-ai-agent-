@@ -105,6 +105,3 @@ You should see events appear as you browse.
   from `server.js` instead of storing base64 inline in SQLite.
 - Add a dashboard by building against `GET /events`.
 
-## License
-
-MIT — see [LICENSE](./LICENSE).
